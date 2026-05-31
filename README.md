@@ -29,6 +29,10 @@ k(\mathbf{x}, \mathbf{x}')
 <details>
 <summary>ベルヌーイ分布</summary>
 
+```math
+\mathrm{Bern}(x \mid \mu)=\mu^x(1-\mu)^{1-x}
+```
+
 経験分布と理論 PMF  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/bernoulli/empirical_vs_theoretical.png" width="320">
 
@@ -42,6 +46,11 @@ k(\mathbf{x}, \mathbf{x}')
 
 <details>
 <summary>二項分布</summary>
+
+```math
+\mathrm{Bin}(m \mid M,\mu)={}_M C_m\,\mu^m(1-\mu)^{M-m},\quad
+{}_M C_m=\frac{M!}{m!(M-m)!}
+```
 
 理論 PMF  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/binomial/pmf.png" width="320">
@@ -57,6 +66,10 @@ k(\mathbf{x}, \mathbf{x}')
 <details>
 <summary>カテゴリ分布</summary>
 
+```math
+\mathrm{Cat}(\mathbf{s} \mid \boldsymbol{\pi})=\prod_{k=1}^{K}\pi_k^{s_k}
+```
+
 経験分布と理論 PMF  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/categorical/empirical_vs_theoretical.png" width="320">
 
@@ -70,6 +83,11 @@ k(\mathbf{x}, \mathbf{x}')
 
 <details>
 <summary>多項分布</summary>
+
+```math
+\mathrm{Mult}(\mathbf{m}\mid\boldsymbol{\pi},M)=
+M!\prod_{k=1}^{K}\frac{\pi_k^{m_k}}{m_k!}
+```
 
 Plotly 3D 静止図  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/multinomial_plotly/surface.png" width="320">
@@ -86,6 +104,11 @@ Plotly 3D アニメーションの静止画像
 <details>
 <summary>ポアソン分布</summary>
 
+```math
+\mathrm{Poi}(x\mid\lambda)=\frac{\lambda^x}{x!}e^{-\lambda},\quad
+\ln \mathrm{Poi}(x\mid\lambda)=x\ln\lambda-\ln x!-\lambda
+```
+
 経験分布と理論 PMF  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/poisson/empirical_vs_theoretical.png" width="320">
 
@@ -101,6 +124,11 @@ Plotly 3D アニメーションの静止画像
 
 <details>
 <summary>ベータ分布</summary>
+
+```math
+\mathrm{Beta}(\mu\mid a,b)=C_B(a,b)\,\mu^{a-1}(1-\mu)^{b-1},\quad
+C_B(a,b)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}
+```
 
 経験分布と理論 PDF  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/beta/empirical_vs_theoretical.png" width="320">
@@ -125,6 +153,14 @@ Plotly 3D アニメーションの静止画像
 <details>
 <summary>ディリクレ分布</summary>
 
+```math
+\mathrm{Dir}(\boldsymbol{\pi}\mid\boldsymbol{\alpha})=
+C_D(\boldsymbol{\alpha})\prod_{k=1}^{K}\pi_k^{\alpha_k-1},\quad
+C_D(\boldsymbol{\alpha})=
+\frac{\Gamma\!\left(\sum_{k=1}^{K}\alpha_k\right)}
+{\prod_{k=1}^{K}\Gamma(\alpha_k)}
+```
+
 静止図  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/dirichlet/static_example.png" width="320">
 
@@ -141,6 +177,11 @@ Plotly 3D アニメーションの静止画像
 
 <details>
 <summary>ガンマ分布</summary>
+
+```math
+\mathrm{Gam}(\lambda\mid a,b)=C_G(a,b)\,\lambda^{a-1}e^{-b\lambda},\quad
+C_G(a,b)=\frac{b^a}{\Gamma(a)}
+```
 
 形状母数 `k` の比較  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/gamma/shape_by_k.png" width="320">
@@ -171,6 +212,12 @@ Plotly 3D アニメーションの静止画像
 <details>
 <summary>1次元ガウス分布</summary>
 
+```math
+\mathcal{N}(x\mid\mu,\sigma^2)=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\!\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
+```
+
 形状比較  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/gaussian_1d/shape_comparison.png" width="320">
 
@@ -190,6 +237,15 @@ Plotly 3D アニメーションの静止画像
 
 <details>
 <summary>多次元ガウス分布</summary>
+
+```math
+\mathcal{N}(\mathbf{x}\mid\boldsymbol{\mu},\mathbf{\Sigma})=
+\frac{1}{\sqrt{(2\pi)^D|\mathbf{\Sigma}|}}
+\exp\!\left\{-\frac{1}{2}
+(\mathbf{x}-\boldsymbol{\mu})^{\mathsf T}
+\mathbf{\Sigma}^{-1}
+(\mathbf{x}-\boldsymbol{\mu})\right\}
+```
 
 2D 等高線比較  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/gaussian_2d/contour_comparison.png" width="320">
@@ -217,6 +273,13 @@ Plotly 3D アニメーションの静止画像
 
 <details>
 <summary>ウィシャート分布</summary>
+
+```math
+\mathcal{W}(\mathbf{\Lambda}\mid\nu,\mathbf{W})=
+C_W(\nu,\mathbf{W})
+|\mathbf{\Lambda}|^{\frac{\nu-D-1}{2}}
+\exp\!\left\{-\frac{1}{2}\mathrm{Tr}(\mathbf{W}^{-1}\mathbf{\Lambda})\right\}
+```
 
 パラメータ比較  
 <img src="ベイズ推論による機械学習入門/Chapter2-基本的な確率分布/wishart/parameter_comparison.png" width="320">

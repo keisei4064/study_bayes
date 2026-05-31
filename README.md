@@ -6,13 +6,15 @@
 
 参考書: [ガウス過程と機械学習 | 書籍情報 | 株式会社 講談社サイエンティフィク](https://www.kspub.co.jp/book/detail/1529267.html)
 
-### RBFカーネル+ガウスノイズ
+### RBFカーネル+観測ノイズ
 
-$$
+```math
 k(\mathbf{x}, \mathbf{x}')
-= \theta_1 \exp\left(-\frac{\|\mathbf{x}-\mathbf{x}'\|^2}{2\theta_2^2}\right)
-+ \theta_3 \,\delta(\mathbf{x}, \mathbf{x}')
-$$
+= \theta_1 \exp\left(
+    -\frac{\lVert \mathbf{x}-\mathbf{x}' \rVert^2}{2\theta_2^2}
+  \right)
++ \theta_3 \delta(\mathbf{x}, \mathbf{x}')
+```
 
 ![RBFカーネル+ガウスノイズにおけるハイパーパラメータ比較](ガウス過程と機械学習/gp_hyperparameter_grid.png)
 

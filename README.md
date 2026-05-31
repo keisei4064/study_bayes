@@ -2,9 +2,27 @@
 
 ベイズ推論関係の勉強  
 
-## 基本的な確率分布
+## ガウス過程と機械学習
 
-### 離散確率分布
+参考書: [ガウス過程と機械学習 | 書籍情報 | 株式会社 講談社サイエンティフィク](https://www.kspub.co.jp/book/detail/1529267.html)
+
+### RBFカーネル+ガウスノイズ
+
+$$
+k(\mathbf{x}, \mathbf{x}')
+= \theta_1 \exp\left(-\frac{\|\mathbf{x}-\mathbf{x}'\|^2}{2\theta_2^2}\right)
++ \theta_3 \,\delta(\mathbf{x}, \mathbf{x}')
+$$
+
+![RBFカーネル+ガウスノイズにおけるハイパーパラメータ比較](ガウス過程と機械学習/gp_hyperparameter_grid.png)
+
+## ベイズ推論による機械学習入門
+
+参考書: [ベイズ推論による機械学習入門 | 書籍情報 | 株式会社 講談社サイエンティフィク](https://www.kspub.co.jp/book/detail/1538320.html)
+
+### 基本的な確率分布
+
+#### 離散確率分布
 
 <details>
 <summary>ベルヌーイ分布</summary>
@@ -77,7 +95,7 @@ Plotly 3D アニメーションの静止画像
 
 </details>
 
-### 連続確率分布
+#### 連続確率分布
 
 <details>
 <summary>ベータ分布</summary>
@@ -212,48 +230,48 @@ Plotly 3D アニメーションの静止画像
 
 </details>
 
-## 推論の様子
+### 推論
 
-### 1次元ガウス分布の学習と予測
+#### 1次元ガウス分布の学習と予測
 
 ![1次元ガウス分布の学習と予測](ベイズ推論による機械学習入門/Chapter3-ベイズ推論による学習と予測/1_dimensional_gaussian_animation.gif)
 
-### 多次元ガウス分布の学習と予測
+#### 多次元ガウス分布の学習と予測
 
 ![多次元ガウス分布の学習と予測](ベイズ推論による機械学習入門/Chapter3-ベイズ推論による学習と予測/multi_dimensional_gaussian_animation.gif)
 
-### 線形回帰
+#### 線形回帰
 
 ![線形回帰](ベイズ推論による機械学習入門/Chapter3-ベイズ推論による学習と予測/linear_regression_animation.gif)
 
 ---
 
-### ポアソン混合モデル
+#### ポアソン混合モデル
 
-#### ギブスサンプリング
+##### ギブスサンプリング
 
 ![ポアソン混合モデルに対するギブスサンプリング](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_poisson_gibbs_sampling_animation.gif)
 
-#### 変分推論
+##### 変分推論
 
 ![ポアソン混合モデルに対する変分推論](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_poisson_variational_inference_animation.gif)
 
-#### 崩壊型ギブスサンプリング
+##### 崩壊型ギブスサンプリング
 
 ![ポアソン混合モデルに対する崩壊型ギブスサンプリング](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_poisson_collapsed_gibbs_sampling_animation.gif)
 
 ---
 
-### ガウス混合モデル
+#### ガウス混合モデル
 
-#### ギブスサンプリング
+##### ギブスサンプリング
 
 ![ガウス混合モデルに対するギブスサンプリング](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_gaussian_gibbs_sampling_animation.gif)
 
-#### 変分推論
+##### 変分推論
 
 ![ガウス混合モデルに対する変分推論](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_gaussian_variational_inference_animation.gif)
 
-#### 崩壊型ギブスサンプリング
+##### 崩壊型ギブスサンプリング
 
 ![ガウス混合モデルに対する崩壊型ギブスサンプリング](ベイズ推論による機械学習入門/Chapter4-混合モデルと近似推論/mixture_gaussian_collapsed_gibbs_sampling_animation.gif)

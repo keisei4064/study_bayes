@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import gp_ml.data_sample
 import gp_ml.gp
+import gp_ml.optimization
 
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 from jax import Array
 from jax import random
 import jax.numpy as jnp
@@ -99,15 +101,32 @@ def plot_hyperparameter_grid(
     base_theta2: float = float(np.asarray(theta2))
     base_theta3: float = float(np.asarray(theta3))
 
+    # ハイパーパラメータの最適化（対数尤度最大化）
+    initial_log_params: Array = jnp.log(
+        jnp.array([base_theta1, base_theta2, base_theta3])
+    )
+    optimized_log_params, _, _ = gp_ml.optimization.optimize_hyperparameters(
+        X_sample=X_train,
+        Y_sample=y_train,
+        initial_log_params=initial_log_params,
+    )
+    opt_theta1, opt_theta2, opt_theta3 = gp_ml.optimization.unpack_log_params(
+        optimized_log_params
+    )
+
+    opt_theta1_f: float = float(np.asarray(opt_theta1))
+    opt_theta2_f: float = float(np.asarray(opt_theta2))
+    opt_theta3_f: float = float(np.asarray(opt_theta3))
+
     specs: list[tuple[str, float, float, float] | None] = [
         ("baseline", base_theta1, base_theta2, base_theta3),
-        None,
-        ("theta1 small", base_theta1 * down_scale, base_theta2, base_theta3),
-        ("theta1 large", base_theta1 * up_scale, base_theta2, base_theta3),
-        ("theta2 small", base_theta1, base_theta2 * down_scale, base_theta3),
-        ("theta2 large", base_theta1, base_theta2 * up_scale, base_theta3),
-        ("theta3 small", base_theta1, base_theta2, base_theta3 * down_scale),
-        ("theta3 large", base_theta1, base_theta2, base_theta3 * up_scale),
+        (r"optimized from baseline (MLE)", opt_theta1_f, opt_theta2_f, opt_theta3_f),
+        (r"$\theta_1$ small", base_theta1 * down_scale, base_theta2, base_theta3),
+        (r"$\theta_1$ large", base_theta1 * up_scale, base_theta2, base_theta3),
+        (r"$\theta_2$ small", base_theta1, base_theta2 * down_scale, base_theta3),
+        (r"$\theta_2$ large", base_theta1, base_theta2 * up_scale, base_theta3),
+        (r"$\theta_3$ small", base_theta1, base_theta2, base_theta3 * down_scale**2),
+        (r"$\theta_3$ large", base_theta1, base_theta2, base_theta3 * up_scale**2),
     ]
 
     fig: Figure
@@ -133,7 +152,9 @@ def plot_hyperparameter_grid(
         std_np: np.ndarray = np.sqrt(np.maximum(np.asarray(var), 0.0))
 
         ax.plot(x_test_np, y_true_np, label="true function")
-        ax.scatter(x_train_np, y_train_np, label="observations", zorder=3, color="green", s=18)
+        ax.scatter(
+            x_train_np, y_train_np, label="observations", zorder=3, color="green", s=18
+        )
         ax.plot(x_test_np, mu_np, label="GP mean", color="orange")
         ax.fill_between(
             x_test_np,
@@ -144,7 +165,7 @@ def plot_hyperparameter_grid(
         )
         ax.set_title(
             f"{label}\n"
-            f"(theta1={t1:.3g}, theta2={t2:.3g}, theta3={t3:.3g})",
+            + rf"$\theta_1={t1:.3g},\ \theta_2={t2:.3g},\ \theta_3={t3:.3g}$",
             fontsize=9,
         )
         ax.grid(True)
@@ -164,7 +185,9 @@ def plot_hyperparameter_grid(
         frameon=False,
         fontsize=9,
     )
-    fig.suptitle("GP regression: baseline and hyperparameter up/down", y=0.995, fontsize=11)
+    fig.suptitle(
+        "GP regression: baseline and hyperparameter tuning", y=0.995, fontsize=11
+    )
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.97))
 
     return fig, axes
@@ -193,6 +216,12 @@ def main() -> None:
         theta2=theta2,
         theta3=theta3,
     )
+
+    output_path: Path = (
+        Path(__file__).resolve().parents[2] / "gp_hyperparameter_grid.png"
+    )
+    fig.savefig(output_path, dpi=200, bbox_inches="tight")
+    print(f"Saved plot to: {output_path}")
 
     plt.show()
 

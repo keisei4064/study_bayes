@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "ipykernel>=6.30.1",
+    "jax>=0.10.1",
     "kaleido==0.2.1",
     "matplotlib>=3.10.6",
     "nbformat>=5.10.4",
@@ -13,3 +14,14 @@ dependencies = [
     "plotly>=6.3.0",
     "scipy>=1.16.1",
 ]
+
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-dir]
+"" = "ガウス過程と機械学習/src"
+
+[tool.setuptools.packages.find]
+where = ["ガウス過程と機械学習/src"]
